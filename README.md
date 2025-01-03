@@ -256,6 +256,6 @@ MIT © [Md Habibur Rahman](https://github.com/shakibdshy)
 
 ## Support
 
-- Create an [Issue](https://github.com/yourusername/react-checkbox-pro/issues)
-- Follow on [Twitter](https://twitter.com/yourusername)
+- Create an [Issue](https://github.com/shakibdshy/react-checkbox-pro/issues)
+- Follow on [Twitter](https://twitter.com/shakibdshy)
 - Star the repo ⭐️
