@@ -9,15 +9,17 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const checkboxProps = useCheckbox(props);
     
     if (typeof props.children === "function") {
-      return props.children(checkboxProps);
+      return props.children({
+        ...checkboxProps,
+        checked: checkboxProps.checked ?? false,
+        onChange: checkboxProps.onChange
+      });
     }
 
     return (
       <CheckboxPrimitive 
         ref={ref} 
-        {...checkboxProps}
-        icon={props.icon}
-        checkedIcon={props.checkedIcon}
+        {...props}
       >
         {props.children}
       </CheckboxPrimitive>

@@ -1,6 +1,6 @@
 # React Checkbox Pro
 
-A fully accessible, customizable React checkbox component with indeterminate state support and modern styling.
+A fully accessible, customizable React checkbox component with indeterminate state support, keyboard shortcuts, and modern styling.
 
 [![npm version](https://img.shields.io/npm/v/react-checkbox-pro.svg)](https://www.npmjs.com/package/react-checkbox-pro)
 [![npm downloads](https://img.shields.io/npm/dm/react-checkbox-pro.svg)](https://www.npmjs.com/package/react-checkbox-pro)
@@ -16,7 +16,11 @@ A fully accessible, customizable React checkbox component with indeterminate sta
 - 💅 Tailwind CSS styling
 - 📝 TypeScript support
 - 🔧 Highly customizable
+- ⌨️ Keyboard shortcuts support
 - 🎉 Easy to use
+- 🔄 Controlled & Uncontrolled modes
+- 👥 Checkbox group support
+- 📍 Flexible label placement
 
 ## Installation
 
@@ -35,7 +39,7 @@ import { Checkbox } from 'react-checkbox-pro';
 
 function App() {
   return (
-    <Checkbox>
+    <Checkbox defaultChecked>
       Click me
     </Checkbox>
   );
@@ -47,26 +51,30 @@ function App() {
 ### Basic Usage
 
 ```jsx
-import { Checkbox } from 'react-checkbox-pro';
+// Controlled
+const [checked, setChecked] = useState(false);
 
-function App() {
-  const [checked, setChecked] = useState(false);
+<Checkbox
+  checked={checked}
+  onChange={setChecked}
+  helperText="Optional helper text"
+>
+  Accept terms and conditions
+</Checkbox>
 
-  return (
-    <Checkbox
-      checked={checked}
-      onChange={setChecked}
-      helperText="Optional helper text"
-    >
-      Accept terms and conditions
-    </Checkbox>
-  );
-}
+// Uncontrolled
+<Checkbox
+  defaultChecked
+  onChange={(checked) => console.log(checked)}
+>
+  Remember me
+</Checkbox>
 ```
 
 ### Color Variants
 
 ```jsx
+<Checkbox color="default">Default</Checkbox>
 <Checkbox color="primary">Primary</Checkbox>
 <Checkbox color="secondary">Secondary</Checkbox>
 <Checkbox color="success">Success</Checkbox>
@@ -83,6 +91,15 @@ function App() {
 <Checkbox size="lg">Large</Checkbox>
 ```
 
+### Label Placement
+
+```jsx
+<Checkbox labelPlacement="left">Left Label</Checkbox>
+<Checkbox labelPlacement="right">Right Label</Checkbox>
+<Checkbox labelPlacement="top">Top Label</Checkbox>
+<Checkbox labelPlacement="bottom">Bottom Label</Checkbox>
+```
+
 ### With Error State
 
 ```jsx
@@ -93,6 +110,37 @@ function App() {
 >
   Accept terms and conditions
 </Checkbox>
+```
+
+### With Keyboard Shortcuts
+
+```jsx
+<Checkbox
+  shortcut="ctrl+1"
+  onShortcut={() => console.log('Shortcut triggered')}
+>
+  Toggle with Ctrl+1
+</Checkbox>
+```
+
+### Checkbox Group
+
+```jsx
+function App() {
+  const [selected, setSelected] = useState(['apple']);
+
+  return (
+    <CheckboxGroup
+      value={selected}
+      onChange={setSelected}
+      orientation="vertical"
+    >
+      <Checkbox value="apple">Apple</Checkbox>
+      <Checkbox value="banana">Banana</Checkbox>
+      <Checkbox value="orange">Orange</Checkbox>
+    </CheckboxGroup>
+  );
+}
 ```
 
 ### Indeterminate State Example
@@ -154,11 +202,13 @@ import { CircleIcon, CheckIcon } from './icons';
 
 ## Props
 
+### Checkbox Props
+
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `checked` | `boolean` | `undefined` | Controlled checked state |
 | `defaultChecked` | `boolean` | `false` | Default checked state for uncontrolled component |
-| `onChange` | `(checked: boolean) => void` | `undefined` | Change handler |
+| `onChange` | `(checked: boolean) => void` \| `(event: ChangeEvent) => void` | `undefined` | Change handler |
 | `disabled` | `boolean` | `false` | Whether the checkbox is disabled |
 | `required` | `boolean` | `false` | Whether the checkbox is required |
 | `error` | `boolean` | `false` | Whether to show error state |
@@ -168,9 +218,23 @@ import { CircleIcon, CheckIcon } from './icons';
 | `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Size of the checkbox |
 | `color` | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | `'primary'` | Color variant |
 | `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` | `'md'` | Border radius variant |
+| `labelPlacement` | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` | Label placement |
 | `icon` | `ReactNode` | `undefined` | Custom unchecked icon |
 | `checkedIcon` | `ReactNode` | `undefined` | Custom checked icon |
-| `children` | `ReactNode \| ((props: CheckboxRenderProps) => ReactNode)` | `undefined` | Label content or render prop |
+| `shortcut` | `string` | `undefined` | Keyboard shortcut (e.g., 'ctrl+1') |
+| `onShortcut` | `() => void` | `undefined` | Shortcut callback |
+
+### CheckboxGroup Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string[]` | `undefined` | Controlled selected values |
+| `defaultValue` | `string[]` | `[]` | Default selected values |
+| `onChange` | `(values: string[]) => void` | `undefined` | Change handler |
+| `disabled` | `boolean` | `false` | Disable all checkboxes in group |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Layout orientation |
+| `spacing` | `'sm' \| 'md' \| 'lg'` | `'md'` | Space between checkboxes |
+| `labelPlacement` | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` | Label placement for all checkboxes |
 
 ## Accessibility
 
@@ -188,14 +252,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## License
 
-MIT © [Your Name]
-
-## Credits
-
-Built with:
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
+MIT © [Md Habibur Rahman](https://github.com/shakibdshy)
 
 ## Support
 

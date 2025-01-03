@@ -2,8 +2,8 @@ import { tv } from "tailwind-variants";
 
 export const checkbox = tv({
   base: [
-    "peer appearance-none border transition-colors",
-    "focus:outline-none",
+    "peer appearance-none border border-gray-300 transition-colors",
+    "focus:outline-none focus:ring-2 focus:ring-offset-1",
     "disabled:cursor-not-allowed disabled:opacity-50"
   ],
   variants: {
@@ -14,12 +14,12 @@ export const checkbox = tv({
       lg: "h-6 w-6"
     },
     color: {
-      default: "border-gray-300 checked:bg-gray-500-500 focus:ring-gray-500/20",
-      primary: "border-gray-300 checked:bg-primary focus:ring-primary/20",
-      secondary: "border-gray-300 checked:bg-secondary focus:ring-secondary/20",
-      success: "border-gray-300 checked:bg-success focus:ring-success/20",
-      warning: "border-gray-300 checked:bg-warning focus:ring-warning/20",
-      danger: "border-gray-300 checked:bg-danger focus:ring-danger/20"
+      default: "checked:border-gray-500 checked:bg-gray-500 focus:ring-gray-500/20",
+      primary: "checked:border-primary checked:bg-primary focus:ring-primary/20",
+      secondary: "checked:border-secondary checked:bg-secondary focus:ring-secondary/20",
+      success: "checked:border-success checked:bg-success focus:ring-success/20",
+      warning: "checked:border-warning checked:bg-warning focus:ring-warning/20",
+      danger: "checked:border-danger checked:bg-danger focus:ring-danger/20"
     },
     radius: {
       none: "rounded-none",
@@ -33,24 +33,39 @@ export const checkbox = tv({
     },
     indeterminate: {
       true: "bg-primary border-primary"
+    },
+    isChecked: {
+      true: ""
     }
   },
   defaultVariants: {
     size: "md",
     color: "primary",
-    radius: "md"
+    radius: "md",
+    isChecked: false
   },
   compoundVariants: [
     {
       error: true,
-      checked: true,
+      isChecked: true,
       class: "bg-danger border-danger"
     }
   ]
 });
 
 export const checkboxWrapper = tv({
-  base: "relative flex items-center"
+  base: "flex items-center gap-2",
+  variants: {
+    labelPlacement: {
+      left: "flex-row-reverse",
+      right: "flex-row",
+      top: "flex-col-reverse items-center",
+      bottom: "flex-col items-center"
+    },
+  },
+  defaultVariants: {
+    labelPlacement: "right",
+  }
 });
 
 export const checkboxLabel = tv({

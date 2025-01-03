@@ -1,3 +1,3 @@
 export * from './checkbox';
-export * from './checkbox.types';
-export * from './use-checkbox'; 
+export * from './checkbox-group';
+export type { CheckboxProps, CheckboxGroupProps, LabelPlacement } from './checkbox.types'; 

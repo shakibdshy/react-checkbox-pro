@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox";
 import CheckIcon from "@/components/icons/checkbox-icon";
 import CircleIcon from "@/components/icons/circle-icon";
 
@@ -72,12 +72,12 @@ export default function Home() {
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Color Variants</h2>
           <div className="space-y-4">
-            <Checkbox color="default">Default</Checkbox>
-            <Checkbox color="primary">Primary</Checkbox>
-            <Checkbox color="secondary">Secondary</Checkbox>
-            <Checkbox color="success">Success</Checkbox>
-            <Checkbox color="warning">Warning</Checkbox>
-            <Checkbox color="danger">Danger</Checkbox>
+            <Checkbox defaultChecked color="default">Default</Checkbox>
+            <Checkbox defaultChecked color="primary">Primary</Checkbox>
+            <Checkbox defaultChecked color="secondary">Secondary</Checkbox>
+            <Checkbox defaultChecked color="success">Success</Checkbox>
+            <Checkbox defaultChecked color="warning">Warning</Checkbox>
+            <Checkbox defaultChecked color="danger">Danger</Checkbox>
           </div>
         </section>
 
@@ -180,6 +180,80 @@ export default function Home() {
             >
               Receive weekly updates about our products and services
             </p>
+          </div>
+        </section>
+
+        {/* Keyboard Shortcuts Example */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Keyboard Shortcuts</h2>
+          <div className="space-y-4">
+            <Checkbox
+              shortcut="ctrl+1"
+              onShortcut={() => console.log('Shortcut triggered: ctrl+1')}
+            >
+              Toggle with Ctrl+1
+            </Checkbox>
+            <Checkbox
+              shortcut="alt+space"
+              onShortcut={() => console.log('Shortcut triggered: alt+space')}
+            >
+              Toggle with Alt+Space
+            </Checkbox>
+          </div>
+        </section>
+
+        {/* Checkbox Group Example */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Checkbox Groups</h2>
+          
+          {/* Vertical Group */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Favorite Fruits (Vertical)</h3>
+            <CheckboxGroup
+              defaultValue={["apple"]}
+              onChange={(values) => console.log('Selected fruits:', values)}
+            >
+              <Checkbox value="apple">Apple</Checkbox>
+              <Checkbox value="banana">Banana</Checkbox>
+              <Checkbox value="orange">Orange</Checkbox>
+            </CheckboxGroup>
+          </div>
+
+          {/* Horizontal Group */}
+          <div className="space-y-4 mt-8">
+            <h3 className="text-lg font-medium">Notification Preferences (Horizontal)</h3>
+            <CheckboxGroup
+              orientation="horizontal"
+              spacing="lg"
+              defaultValue={["email"]}
+              onChange={(values) => console.log('Notification prefs:', values)}
+            >
+              <Checkbox value="email">Email</Checkbox>
+              <Checkbox value="sms">SMS</Checkbox>
+              <Checkbox value="push">Push</Checkbox>
+            </CheckboxGroup>
+          </div>
+
+          {/* Different Label Placements */}
+          <div className="space-y-4 mt-8">
+            <h3 className="text-lg font-medium">Label Placements</h3>
+            <div className="grid grid-cols-2 gap-8">
+              <CheckboxGroup
+                labelPlacement="left"
+                defaultValue={["option1"]}
+              >
+                <Checkbox value="option1">Left Label</Checkbox>
+                <Checkbox value="option2">Left Label 2</Checkbox>
+              </CheckboxGroup>
+
+              <CheckboxGroup
+                labelPlacement="right"
+                defaultValue={["option1"]}
+              >
+                <Checkbox value="option1">Right Label</Checkbox>
+                <Checkbox value="option2">Right Label 2</Checkbox>
+              </CheckboxGroup>
+            </div>
           </div>
         </section>
       </main>

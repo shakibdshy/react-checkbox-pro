@@ -1,149 +1,177 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import { CheckboxRenderProps } from "./checkbox.types";
-import { checkbox, checkboxWrapper, checkboxLabel } from "./checkbox.styles";
-import { DefaultCheckIcon, IndeterminateIcon } from "./checkbox-icon";
+
+import React, { useEffect, useCallback, useState } from "react";
+import { CheckboxProps, CheckboxRenderProps } from "./checkbox.types";
+import { checkbox, checkboxWrapper, checkboxIcon, checkboxText, helperText } from "./checkbox.styles";
+import { CheckboxGroupContext } from "./checkbox-group";
 import { cn } from "@/lib/utils";
+import { DefaultCheckIcon, IndeterminateIcon } from "./checkbox-icon";
 
-const sizeStyles = {
-  xs: 'h-3 w-3',
-  sm: 'h-4 w-4',
-  md: 'h-5 w-5',
-  lg: 'h-6 w-6'
-};
+export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProps>(
+  (props, ref) => {
+    const {
+      children,
+      labelPlacement = "right",
+      shortcut,
+      onShortcut,
+      onChange,
+      checked,
+      defaultChecked,
+      size = "md",
+      color = "primary",
+      radius = "md",
+      error,
+      indeterminate,
+      disabled,
+      helperText: helperTextProp,
+      errorMessage,
+      icon,
+      checkedIcon,
+      value,
+      id,
+      ...restProps
+    } = props;
 
-export const CheckboxPrimitive = React.forwardRef<
-  HTMLInputElement,
-  CheckboxRenderProps & { 
-    children?: React.ReactNode;
-    'aria-invalid'?: boolean;
-    icon?: React.ReactNode;
-    checkedIcon?: React.ReactNode;
-  }
->(({ 
-  checked,
-  disabled,
-  onChange,
-  children,
-  size = "md",
-  color = "primary",
-  radius = "md",
-  error,
-  helperText: helperTextProp,
-  errorMessage,
-  indeterminate,
-  required,
-  "aria-label": ariaLabel,
-  "aria-labelledby": ariaLabelledBy,
-  "aria-describedby": ariaDescribedBy,
-  "aria-invalid": ariaInvalid,
-  id,
-  icon,
-  checkedIcon,
-  ...props 
-}, ref) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const helperTextId = id ? `${id}-helper-text` : undefined;
-  const labelId = id ? `${id}-label` : undefined;
-  
-  // Handle indeterminate state
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.indeterminate = !!indeterminate;
-    }
-  }, [indeterminate]);
+    const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
+    const isControlled = checked !== undefined;
+    const group = React.useContext(CheckboxGroupContext);
+    const finalLabelPlacement = group?.labelPlacement || labelPlacement;
+    
+    const isChecked = group 
+      ? group.value.includes(value || '') 
+      : isControlled
+        ? checked
+        : internalChecked;
 
-  // Merge refs
-  const mergedRef = (node: HTMLInputElement) => {
-    if (typeof ref === 'function') {
-      ref(node);
-    } else if (ref) {
-      ref.current = node;
-    }
-    inputRef.current = node;
-  };
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      const newChecked = e.target.checked;
+      
+      if (group && value) {
+        group.onChange(value);
+        return;
+      }
+      
+      if (!isControlled) {
+        setInternalChecked(newChecked);
+      }
+      
+      if (onChange) {
+        if (typeof onChange === 'function' && onChange.length === 1) {
+          (onChange as (checked: boolean) => void)(newChecked);
+        } else {
+          (onChange as (e: React.ChangeEvent<HTMLInputElement>) => void)(e);
+        }
+      }
+    }, [group, value, isControlled, onChange]);
 
-  // Combine aria-describedby values
-  const ariaDescribedByValues = [
-    helperTextId,
-    ariaDescribedBy,
-  ].filter(Boolean).join(" ") || undefined;
+    // Handle keyboard shortcuts
+    useEffect(() => {
+      if (!shortcut) return;
 
-  return (
-    <div className="space-y-1.5" role="group">
-      <label className={checkboxLabel()}>
-        <div className={checkboxWrapper()}>
-          <input
-            type="checkbox"
-            ref={mergedRef}
-            checked={checked}
-            disabled={disabled}
-            onChange={onChange}
-            required={required}
-            id={id}
-            className={checkbox({ 
-              size, 
-              color: error ? 'danger' : color, 
-              radius,
-              error,
-              indeterminate 
-            })}
-            aria-label={ariaLabel}
-            aria-labelledby={children ? labelId : ariaLabelledBy}
-            aria-describedby={ariaDescribedByValues}
-            aria-invalid={ariaInvalid ?? error}
-            aria-required={required}
-            aria-checked={indeterminate ? "mixed" : checked}
-            {...props}
-          />
-          <div
-            className={cn(
-              "pointer-events-none absolute left-0 top-0",
-              "flex items-center justify-center text-white",
-              "opacity-0 peer-checked:opacity-100",
-              "transition-opacity duration-200",
-              sizeStyles[size]
-            )}
-            aria-hidden="true"
-          >
-            {indeterminate ? (
-              <IndeterminateIcon />
-            ) : (
-              checkedIcon || icon || <DefaultCheckIcon />
-            )}
-          </div>
-        </div>
-        {children && (
-          <span
-            id={labelId}
-            className={cn(
-              "select-none text-gray-700",
-              disabled && "opacity-50",
-              {
-                'text-xs': size === 'xs',
-                'text-sm': size === 'sm',
-                'text-base': size === 'md',
-                'text-lg': size === 'lg',
-              }
-            )}
-          >
-            {children}
-          </span>
-        )}
-      </label>
-      {(helperTextProp || errorMessage) && (
-        <p
-          id={helperTextId}
-          className={cn(
-            "text-sm",
-            error ? "text-danger" : "text-gray-500"
-          )}
+      const handleKeyDown = (event: KeyboardEvent) => {
+        const keys = shortcut.toLowerCase().split('+');
+        const isCtrlRequired = keys.includes('ctrl');
+        const isShiftRequired = keys.includes('shift');
+        const isAltRequired = keys.includes('alt');
+        const mainKey = keys[keys.length - 1];
+
+        const isMatch = 
+          event.key.toLowerCase() === mainKey &&
+          event.ctrlKey === isCtrlRequired &&
+          event.shiftKey === isShiftRequired &&
+          event.altKey === isAltRequired;
+
+        if (isMatch) {
+          event.preventDefault();
+          onShortcut?.();
+          handleChange({ 
+            target: { 
+              checked: !isChecked,
+              type: 'checkbox',
+              value: value || ''
+            } 
+          } as React.ChangeEvent<HTMLInputElement>);
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [shortcut, onShortcut, isChecked, handleChange, value]);
+
+    const helperTextId = id ? `${id}-helper-text` : undefined;
+
+    return (
+      <div className="space-y-1.5">
+        <label
+          className={checkboxWrapper({
+            labelPlacement: finalLabelPlacement,
+          })}
         >
-          {error ? errorMessage : helperTextProp}
-        </p>
-      )}
-    </div>
-  );
-});
+          <div className={cn("relative", "flex items-center", "gap-2")}>
+            <input
+              type="checkbox"
+              ref={ref}
+              checked={isChecked}
+              onChange={handleChange}
+              disabled={disabled || group?.disabled}
+              className={checkbox({ 
+                size, 
+                color, 
+                radius, 
+                error, 
+                indeterminate,
+                isChecked: isChecked || false
+              })}
+              id={id}
+              value={value}
+              aria-checked={indeterminate ? "mixed" : isChecked}
+              {...restProps}
+            />
+            <div
+              className={cn(
+                checkboxIcon({ size }),
+                "pointer-events-none absolute left-0 top-0",
+                "flex items-center justify-center text-white",
+                "opacity-0 peer-checked:opacity-100",
+                "transition-opacity duration-200"
+              )}
+            >
+              {indeterminate ? (
+                <IndeterminateIcon />
+              ) : (
+                checkedIcon || icon || <DefaultCheckIcon />
+              )}
+            </div>
+          </div>
+          {typeof children === 'function' ? 
+            (children as (props: CheckboxRenderProps) => React.ReactNode)({
+              ...props,
+              checked: isChecked || false,
+              onChange: handleChange
+            }) : 
+            children && (
+              <span className={checkboxText({ size, disabled: disabled || group?.disabled })}>
+                {children}
+                {shortcut && (
+                  <kbd className="ml-2 rounded bg-gray-100 px-1.5 py-0.5 text-xs font-semibold text-gray-800">
+                    {shortcut}
+                  </kbd>
+                )}
+              </span>
+            )
+          }
+        </label>
+        {(helperTextProp || errorMessage) && (
+          <p
+            id={helperTextId}
+            className={helperText({ error })}
+          >
+            {error ? errorMessage : helperTextProp}
+          </p>
+        )}
+      </div>
+    );
+  }
+);
 
 CheckboxPrimitive.displayName = "CheckboxPrimitive";
