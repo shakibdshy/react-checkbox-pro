@@ -1,101 +1,188 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import CheckIcon from "@/components/icons/checkbox-icon";
+import CircleIcon from "@/components/icons/circle-icon";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // Basic checkbox state
+  const [isChecked, setIsChecked] = useState(false);
+  const [isRequired, setIsRequired] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  // Todo list for indeterminate example
+  const [todos, setTodos] = useState([
+    { id: 1, title: "Learn React", completed: false },
+    { id: 2, title: "Build a project", completed: false },
+    { id: 3, title: "Write documentation", completed: false },
+  ]);
+
+  // Calculate indeterminate state
+  const allSelected = todos.every((todo) => todo.completed);
+  const someSelected = todos.some((todo) => todo.completed);
+  const isIndeterminate = someSelected && !allSelected;
+
+  // Handlers
+  const handleParentChange = (checked: boolean) => {
+    setTodos((prev) => prev.map((todo) => ({ ...todo, completed: checked })));
+  };
+
+  const handleChildChange = (id: number, checked: boolean) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: checked } : todo
+      )
+    );
+  };
+
+  return (
+    <div className="min-h-screen p-8">
+      <main className="max-w-2xl mx-auto space-y-12">
+        {/* Basic Examples */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Basic Usage</h2>
+          <div className="space-y-4">
+            <Checkbox checked={isChecked} onChange={setIsChecked}>
+              Basic Checkbox
+            </Checkbox>
+
+            <Checkbox 
+              checked={isRequired} 
+              onChange={setIsRequired}
+              required
+              helperText="This field is required"
+            >
+              Required Checkbox
+            </Checkbox>
+
+            <Checkbox
+              checked={hasError}
+              onChange={setHasError}
+              error={true}
+              errorMessage="Please accept the terms"
+              required
+            >
+              Checkbox with Error
+            </Checkbox>
+          </div>
+        </section>
+
+        {/* Color Variants */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Color Variants</h2>
+          <div className="space-y-4">
+            <Checkbox color="default">Default</Checkbox>
+            <Checkbox color="primary">Primary</Checkbox>
+            <Checkbox color="secondary">Secondary</Checkbox>
+            <Checkbox color="success">Success</Checkbox>
+            <Checkbox color="warning">Warning</Checkbox>
+            <Checkbox color="danger">Danger</Checkbox>
+          </div>
+        </section>
+
+        {/* Size Variants */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Size Variants</h2>
+          <div className="space-y-4">
+            <Checkbox size="xs">Extra Small</Checkbox>
+            <Checkbox size="sm">Small</Checkbox>
+            <Checkbox size="md">Medium</Checkbox>
+            <Checkbox size="lg">Large</Checkbox>
+          </div>
+        </section>
+
+        {/* Radius Variants */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Radius Variants</h2>
+          <div className="space-y-4">
+            <Checkbox radius="none">Square</Checkbox>
+            <Checkbox radius="sm">Small Radius</Checkbox>
+            <Checkbox radius="md">Medium Radius</Checkbox>
+            <Checkbox radius="lg">Large Radius</Checkbox>
+            <Checkbox radius="full">Full Radius</Checkbox>
+          </div>
+        </section>
+
+        {/* Custom Icons */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Custom Icons</h2>
+          <div className="space-y-4">
+            <Checkbox 
+              icon={<CircleIcon />} 
+              checkedIcon={<CheckIcon />}
+              helperText="Checkbox with custom icons"
+            >
+              Custom Icons
+            </Checkbox>
+          </div>
+        </section>
+
+        {/* Indeterminate Example */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Indeterminate Example</h2>
+          <div className="space-y-4 border rounded-lg p-4">
+            <Checkbox
+              checked={allSelected}
+              indeterminate={isIndeterminate}
+              onChange={handleParentChange}
+              aria-label="Select all todos"
+              helperText="Select or deselect all items"
+            >
+              Select All Tasks
+            </Checkbox>
+            
+            <div className="ml-6 space-y-2 mt-2">
+              {todos.map((todo) => (
+                <Checkbox
+                  key={todo.id}
+                  checked={todo.completed}
+                  onChange={(checked: boolean) => handleChildChange(todo.id, checked)}
+                >
+                  {todo.title}
+                </Checkbox>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Disabled State */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Disabled State</h2>
+          <div className="space-y-4">
+            <Checkbox disabled>Disabled Unchecked</Checkbox>
+            <Checkbox disabled checked>
+              Disabled Checked
+            </Checkbox>
+            <Checkbox 
+              disabled 
+              checked 
+              helperText="This checkbox cannot be modified"
+            >
+              Disabled with Helper Text
+            </Checkbox>
+          </div>
+        </section>
+
+        {/* Accessibility Example */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Accessibility Features</h2>
+          <div className="space-y-4">
+            <Checkbox
+              aria-label="Subscribe to newsletter"
+              aria-describedby="newsletter-description"
+            >
+              Subscribe to Newsletter
+            </Checkbox>
+            <p 
+              id="newsletter-description" 
+              className="text-sm text-gray-500 ml-6"
+            >
+              Receive weekly updates about our products and services
+            </p>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
