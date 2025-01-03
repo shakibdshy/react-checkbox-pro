@@ -1,3 +1,7 @@
+/**
+ * Default checkmark icon for the checked state
+ * A simple checkmark SVG that follows the current color
+ */
 export const DefaultCheckIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -14,6 +18,10 @@ export const DefaultCheckIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+/**
+ * Icon for the indeterminate state
+ * Displays a horizontal line to indicate partial selection
+ */
 export const IndeterminateIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

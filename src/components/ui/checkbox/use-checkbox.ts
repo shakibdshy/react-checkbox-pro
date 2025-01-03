@@ -3,7 +3,32 @@
 import { useCallback, useState, ChangeEvent } from "react";
 import type { CheckboxProps } from "./checkbox.types";
 
+/**
+ * useCheckbox Hook
+ * 
+ * A custom hook that handles checkbox state management and event handling.
+ * Supports both controlled and uncontrolled modes, and handles different onChange patterns.
+ * 
+ * @features
+ * - Manages internal state for uncontrolled mode
+ * - Handles both boolean and event-based onChange handlers
+ * - Preserves all checkbox props for component rendering
+ * - Manages accessibility attributes
+ * 
+ * @example
+ * ```tsx
+ * const checkboxProps = useCheckbox({
+ *   defaultChecked: true,
+ *   onChange: (checked) => console.log(checked),
+ *   disabled: false
+ * });
+ * ```
+ * 
+ * @param props - Checkbox component props
+ * @returns Processed props with state management and handlers
+ */
 export const useCheckbox = (props: CheckboxProps) => {
+  // Internal state for uncontrolled mode
   const [internalChecked, setInternalChecked] = useState(
     props.defaultChecked ?? false
   );
@@ -11,6 +36,10 @@ export const useCheckbox = (props: CheckboxProps) => {
   const isControlled = props.checked !== undefined;
   const checked = isControlled ? props.checked : internalChecked;
   
+  /**
+   * Handles checkbox state changes
+   * Supports both boolean and event-based onChange handlers
+   */
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement> | boolean) => {
       const newChecked = typeof e === 'boolean' ? e : e.target.checked;

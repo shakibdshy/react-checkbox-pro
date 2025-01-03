@@ -7,6 +7,33 @@ import { CheckboxGroupContext } from "./checkbox-group";
 import { cn } from "@/lib/utils";
 import { DefaultCheckIcon, IndeterminateIcon } from "./checkbox-icon";
 
+/**
+ * CheckboxPrimitive Component
+ * 
+ * A low-level checkbox component that handles all the core functionality.
+ * This component manages both standalone checkbox state and group checkbox behavior.
+ * 
+ * @features
+ * - Controlled & uncontrolled modes
+ * - Indeterminate state support
+ * - Keyboard shortcuts
+ * - Custom icons
+ * - Error states & helper text
+ * - Label placement options
+ * - Accessible by default
+ * 
+ * @example
+ * ```tsx
+ * <CheckboxPrimitive
+ *   checked={checked}
+ *   onChange={handleChange}
+ *   size="md"
+ *   color="primary"
+ * >
+ *   Label Text
+ * </CheckboxPrimitive>
+ * ```
+ */
 export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (props, ref) => {
     const {
@@ -32,17 +59,25 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
       ...restProps
     } = props;
 
+    // Internal state for uncontrolled mode
     const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
     const isControlled = checked !== undefined;
     const group = React.useContext(CheckboxGroupContext);
     const finalLabelPlacement = group?.labelPlacement || labelPlacement;
     
+    // Determine checked state based on group context or local state
     const isChecked = group 
       ? group.value.includes(value || '') 
       : isControlled
         ? checked
         : internalChecked;
 
+    /**
+     * Handles checkbox state changes
+     * - Updates internal state for uncontrolled mode
+     * - Calls group onChange if in a checkbox group
+     * - Calls provided onChange handler
+     */
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       const newChecked = e.target.checked;
       
@@ -64,7 +99,10 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
       }
     }, [group, value, isControlled, onChange]);
 
-    // Handle keyboard shortcuts
+    /**
+     * Keyboard shortcut handler
+     * Allows custom keyboard combinations to toggle the checkbox
+     */
     useEffect(() => {
       if (!shortcut) return;
 

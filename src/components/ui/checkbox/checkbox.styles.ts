@@ -1,5 +1,17 @@
 import { tv } from "tailwind-variants";
 
+/**
+ * Core checkbox input styles
+ * Handles the main checkbox appearance, states, and variants
+ * 
+ * @variants
+ * size - Controls checkbox dimensions (xs, sm, md, lg)
+ * color - Theme color variants (default, primary, secondary, etc.)
+ * radius - Border radius options (none, sm, md, lg, full)
+ * error - Error state styling
+ * indeterminate - Styling for indeterminate state
+ * isChecked - Styling specific to checked state
+ */
 export const checkbox = tv({
   base: [
     "peer appearance-none border border-gray-300 transition-colors",
@@ -53,6 +65,13 @@ export const checkbox = tv({
   ]
 });
 
+/**
+ * Wrapper styles for the checkbox and label container
+ * Controls the layout and spacing of the checkbox relative to its label
+ * 
+ * @variants
+ * labelPlacement - Label position relative to checkbox (left, right, top, bottom)
+ */
 export const checkboxWrapper = tv({
   base: "flex items-center gap-2",
   variants: {
@@ -68,10 +87,20 @@ export const checkboxWrapper = tv({
   }
 });
 
+/**
+ * Styles for the checkbox label container
+ */
 export const checkboxLabel = tv({
   base: "flex items-center gap-2"
 });
 
+/**
+ * Styles for the checkbox icon container
+ * Handles positioning and transitions for the check/indeterminate icons
+ * 
+ * @variants
+ * size - Matches the checkbox size variants
+ */
 export const checkboxIcon = tv({
   base: [
     "pointer-events-none absolute left-0 top-0",
@@ -92,6 +121,13 @@ export const checkboxIcon = tv({
   }
 });
 
+/**
+ * Styles for the checkbox label text
+ * 
+ * @variants
+ * size - Text size variants matching checkbox sizes
+ * disabled - Styling for disabled state
+ */
 export const checkboxText = tv({
   base: "text-gray-700 select-none",
   variants: {
@@ -110,6 +146,12 @@ export const checkboxText = tv({
   }
 });
 
+/**
+ * Styles for helper and error text below the checkbox
+ * 
+ * @variants
+ * error - Switches between helper text and error message styling
+ */
 export const helperText = tv({
   base: "mt-1.5 text-sm",
   variants: {

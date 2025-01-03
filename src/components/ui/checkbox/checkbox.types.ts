@@ -1,10 +1,41 @@
 import type { ReactNode, ChangeEvent } from "react";
 
+/** Available checkbox sizes */
 export type CheckboxSize = "xs" | "sm" | "md" | "lg";
+
+/** Available color variants */
 export type CheckboxColor = "default" | "primary" | "secondary" | "success" | "warning" | "danger";
+
+/** Border radius options */
 export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
+
+/** Label placement options relative to the checkbox */
 export type LabelPlacement = 'left' | 'right' | 'top' | 'bottom';
 
+/**
+ * Props for the Checkbox component
+ * 
+ * @property checked - Controlled checked state
+ * @property defaultChecked - Initial checked state for uncontrolled mode
+ * @property onChange - Change handler (supports both boolean and event handlers)
+ * @property disabled - Disables the checkbox
+ * @property required - Makes the checkbox required in forms
+ * @property name - Form field name
+ * @property value - Value for use in checkbox groups
+ * @property id - HTML id attribute
+ * @property size - Checkbox size variant
+ * @property color - Color theme variant
+ * @property radius - Border radius variant
+ * @property icon - Custom icon for checked state
+ * @property checkedIcon - Alternative icon for checked state
+ * @property children - Label content or render function
+ * @property error - Error state
+ * @property helperText - Helper text below checkbox
+ * @property indeterminate - Indeterminate state
+ * @property errorMessage - Error message text
+ * @property labelPlacement - Label position
+ * @property shortcut - Keyboard shortcut
+ */
 export interface CheckboxProps {
   checked?: boolean;
   defaultChecked?: boolean;
@@ -36,11 +67,28 @@ export interface CheckboxProps {
   onShortcut?: () => void;
 }
 
+/**
+ * Props passed to render function when using children as a function
+ * Extends CheckboxProps but makes checked required and removes some props
+ */
 export interface CheckboxRenderProps extends Omit<CheckboxProps, 'defaultChecked' | 'onChange' | 'children'> {
   checked: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * Props for the CheckboxGroup component
+ * 
+ * @property children - Checkbox components to group
+ * @property value - Controlled selected values
+ * @property defaultValue - Initial values for uncontrolled mode
+ * @property onChange - Change handler for group values
+ * @property disabled - Disables all checkboxes in group
+ * @property name - Form field name for all checkboxes
+ * @property orientation - Layout direction
+ * @property spacing - Space between checkboxes
+ * @property labelPlacement - Label position for all checkboxes
+ */
 export interface CheckboxGroupProps {
   children: ReactNode;
   value?: string[];
