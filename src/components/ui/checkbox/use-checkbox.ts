@@ -49,10 +49,14 @@ export const useCheckbox = (props: CheckboxProps) => {
       }
       
       if (props.onChange) {
-        if (typeof props.onChange === 'function' && props.onChange.length === 1) {
+        if (typeof e === 'boolean') {
           (props.onChange as (checked: boolean) => void)(newChecked);
-        } else if (typeof e !== 'boolean') {
-          (props.onChange as (event: ChangeEvent<HTMLInputElement>) => void)(e);
+        } else if (typeof props.onChange === 'function') {
+          if (props.onChange.length === 1) {
+            (props.onChange as (checked: boolean) => void)(newChecked);
+          } else {
+            (props.onChange as (event: ChangeEvent<HTMLInputElement>) => void)(e);
+          }
         }
       }
     },
