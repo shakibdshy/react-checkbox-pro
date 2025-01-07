@@ -91,10 +91,12 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
       }
       
       if (onChange) {
-        if (typeof onChange === 'function' && onChange.length === 1) {
-          (onChange as (checked: boolean) => void)(newChecked);
-        } else {
-          (onChange as (e: React.ChangeEvent<HTMLInputElement>) => void)(e);
+        if (typeof onChange === 'function') {
+          if (onChange.length === 1) {
+            (onChange as (checked: boolean) => void)(newChecked);
+          } else {
+            (onChange as (e: React.ChangeEvent<HTMLInputElement>) => void)(e);
+          }
         }
       }
     }, [group, value, isControlled, onChange]);
@@ -122,19 +124,34 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
         if (isMatch) {
           event.preventDefault();
           onShortcut?.();
-          handleChange({ 
-            target: { 
-              checked: !isChecked,
-              type: 'checkbox',
-              value: value || ''
-            } 
-          } as React.ChangeEvent<HTMLInputElement>);
+          const newChecked = !isChecked;
+          
+          if (!isControlled) {
+            setInternalChecked(newChecked);
+          }
+          
+          if (onChange) {
+            if (typeof onChange === 'function') {
+              if (onChange.length === 1) {
+                (onChange as (checked: boolean) => void)(newChecked);
+              } else {
+                const syntheticEvent = {
+                  target: {
+                    checked: newChecked,
+                    type: 'checkbox',
+                    value: value || ''
+                  }
+                } as React.ChangeEvent<HTMLInputElement>;
+                (onChange as (e: React.ChangeEvent<HTMLInputElement>) => void)(syntheticEvent);
+              }
+            }
+          }
         }
       };
 
       window.addEventListener('keydown', handleKeyDown);
       return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [shortcut, onShortcut, isChecked, handleChange, value]);
+    }, [shortcut, onShortcut, isChecked, onChange, isControlled, value]);
 
     const helperTextId = id ? `${id}-helper-text` : undefined;
 
