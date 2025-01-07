@@ -8,8 +8,6 @@ import CircleIcon from "@/components/icons/circle-icon";
 export default function Home() {
   // Basic checkbox state
   const [isChecked, setIsChecked] = useState(false);
-  const [isRequired, setIsRequired] = useState(false);
-  const [hasError, setHasError] = useState(false);
 
   // Todo list for indeterminate example
   const [todos, setTodos] = useState([
@@ -36,6 +34,11 @@ export default function Home() {
     );
   };
 
+  // Fixed handleChange for the basic checkbox
+  const handleBasicChange = (checked: boolean) => {
+    setIsChecked(checked);
+  };
+
   return (
     <div className="min-h-screen p-8">
       <main className="max-w-2xl mx-auto space-y-12">
@@ -43,22 +46,36 @@ export default function Home() {
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Basic Usage</h2>
           <div className="space-y-4">
-            <Checkbox checked={isChecked} onChange={setIsChecked}>
-              Basic Checkbox
-            </Checkbox>
+            <Checkbox>Default</Checkbox>
+          </div>
+        </section>
 
-            <Checkbox 
-              checked={isRequired} 
-              onChange={setIsRequired}
-              required
-              helperText="This field is required"
-            >
+        {/* Controlled Checkbox */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Controlled Checkbox</h2>
+          <div className="space-y-4">
+            <div>
+              <Checkbox checked={isChecked} onChange={handleBasicChange}>
+                Basic Checkbox
+              </Checkbox>
+              <div className="mt-2 text-sm text-gray-500">
+                Current state: {isChecked ? "Checked" : "Unchecked"}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Helper Text and Error Checkbox */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">
+            Helper Text and Error Checkbox
+          </h2>
+          <div className="space-y-4">
+            <Checkbox required helperText="This field is required">
               Required Checkbox
             </Checkbox>
 
             <Checkbox
-              checked={hasError}
-              onChange={setHasError}
               error={true}
               errorMessage="Please accept the terms"
               required
@@ -72,12 +89,24 @@ export default function Home() {
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Color Variants</h2>
           <div className="space-y-4">
-            <Checkbox defaultChecked color="default">Default</Checkbox>
-            <Checkbox defaultChecked color="primary">Primary</Checkbox>
-            <Checkbox defaultChecked color="secondary">Secondary</Checkbox>
-            <Checkbox defaultChecked color="success">Success</Checkbox>
-            <Checkbox defaultChecked color="warning">Warning</Checkbox>
-            <Checkbox defaultChecked color="danger">Danger</Checkbox>
+            <Checkbox defaultChecked color="default">
+              Default
+            </Checkbox>
+            <Checkbox defaultChecked color="primary">
+              Primary
+            </Checkbox>
+            <Checkbox defaultChecked color="secondary">
+              Secondary
+            </Checkbox>
+            <Checkbox defaultChecked color="success">
+              Success
+            </Checkbox>
+            <Checkbox defaultChecked color="warning">
+              Warning
+            </Checkbox>
+            <Checkbox defaultChecked color="danger">
+              Danger
+            </Checkbox>
           </div>
         </section>
 
@@ -108,8 +137,8 @@ export default function Home() {
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Custom Icons</h2>
           <div className="space-y-4">
-            <Checkbox 
-              icon={<CircleIcon />} 
+            <Checkbox
+              icon={<CircleIcon />}
               checkedIcon={<CheckIcon />}
               helperText="Checkbox with custom icons"
             >
@@ -131,13 +160,15 @@ export default function Home() {
             >
               Select All Tasks
             </Checkbox>
-            
+
             <div className="ml-6 space-y-2 mt-2">
               {todos.map((todo) => (
                 <Checkbox
                   key={todo.id}
                   checked={todo.completed}
-                  onChange={(checked: boolean) => handleChildChange(todo.id, checked)}
+                  onChange={(checked: boolean) =>
+                    handleChildChange(todo.id, checked)
+                  }
                 >
                   {todo.title}
                 </Checkbox>
@@ -154,9 +185,9 @@ export default function Home() {
             <Checkbox disabled checked>
               Disabled Checked
             </Checkbox>
-            <Checkbox 
-              disabled 
-              checked 
+            <Checkbox
+              disabled
+              checked
               helperText="This checkbox cannot be modified"
             >
               Disabled with Helper Text
@@ -174,8 +205,8 @@ export default function Home() {
             >
               Subscribe to Newsletter
             </Checkbox>
-            <p 
-              id="newsletter-description" 
+            <p
+              id="newsletter-description"
               className="text-sm text-gray-500 ml-6"
             >
               Receive weekly updates about our products and services
@@ -189,13 +220,13 @@ export default function Home() {
           <div className="space-y-4">
             <Checkbox
               shortcut="ctrl+1"
-              onShortcut={() => console.log('Shortcut triggered: ctrl+1')}
+              onShortcut={() => console.log("Shortcut triggered: ctrl+1")}
             >
               Toggle with Ctrl+1
             </Checkbox>
             <Checkbox
               shortcut="alt+space"
-              onShortcut={() => console.log('Shortcut triggered: alt+space')}
+              onShortcut={() => console.log("Shortcut triggered: alt+space")}
             >
               Toggle with Alt+Space
             </Checkbox>
@@ -205,13 +236,13 @@ export default function Home() {
         {/* Checkbox Group Example */}
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Checkbox Groups</h2>
-          
+
           {/* Vertical Group */}
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Favorite Fruits (Vertical)</h3>
             <CheckboxGroup
               defaultValue={["apple"]}
-              onChange={(values) => console.log('Selected fruits:', values)}
+              onChange={(values) => console.log("Selected fruits:", values)}
             >
               <Checkbox value="apple">Apple</Checkbox>
               <Checkbox value="banana">Banana</Checkbox>
@@ -221,12 +252,14 @@ export default function Home() {
 
           {/* Horizontal Group */}
           <div className="space-y-4 mt-8">
-            <h3 className="text-lg font-medium">Notification Preferences (Horizontal)</h3>
+            <h3 className="text-lg font-medium">
+              Notification Preferences (Horizontal)
+            </h3>
             <CheckboxGroup
               orientation="horizontal"
               spacing="lg"
               defaultValue={["email"]}
-              onChange={(values) => console.log('Notification prefs:', values)}
+              onChange={(values) => console.log("Notification prefs:", values)}
             >
               <Checkbox value="email">Email</Checkbox>
               <Checkbox value="sms">SMS</Checkbox>
@@ -238,18 +271,12 @@ export default function Home() {
           <div className="space-y-4 mt-8">
             <h3 className="text-lg font-medium">Label Placements</h3>
             <div className="grid grid-cols-2 gap-8">
-              <CheckboxGroup
-                labelPlacement="left"
-                defaultValue={["option1"]}
-              >
+              <CheckboxGroup labelPlacement="left" defaultValue={["option1"]}>
                 <Checkbox value="option1">Left Label</Checkbox>
                 <Checkbox value="option2">Left Label 2</Checkbox>
               </CheckboxGroup>
 
-              <CheckboxGroup
-                labelPlacement="right"
-                defaultValue={["option1"]}
-              >
+              <CheckboxGroup labelPlacement="right" defaultValue={["option1"]}>
                 <Checkbox value="option1">Right Label</Checkbox>
                 <Checkbox value="option2">Right Label 2</Checkbox>
               </CheckboxGroup>
