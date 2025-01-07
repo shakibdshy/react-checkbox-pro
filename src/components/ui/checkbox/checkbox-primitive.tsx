@@ -56,6 +56,7 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
       checkedIcon,
       value,
       id,
+      isWithoutTailwind = false,
       ...restProps
     } = props;
 
@@ -155,13 +156,42 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
 
     const helperTextId = id ? `${id}-helper-text` : undefined;
 
+    // Generate class names based on mode
+    const checkboxClass = checkbox({
+      size,
+      color,
+      radius,
+      error,
+      indeterminate,
+      isChecked,
+      isWithoutTailwind,
+      class: isWithoutTailwind ? `react-checkbox-pro-base--${color} react-checkbox-pro-base--radius-${radius}` : undefined
+    });
+
+    const wrapperClass = checkboxWrapper({
+      labelPlacement: finalLabelPlacement,
+      isWithoutTailwind
+    });
+
+    const iconClass = checkboxIcon({
+      size,
+      isWithoutTailwind
+    });
+
+    const textClass = checkboxText({
+      size,
+      disabled: disabled || group?.disabled,
+      isWithoutTailwind
+    });
+
+    const helperTextClass = helperText({
+      error,
+      isWithoutTailwind
+    });
+
     return (
       <div className="space-y-1.5">
-        <label
-          className={checkboxWrapper({
-            labelPlacement: finalLabelPlacement,
-          })}
-        >
+        <label className={wrapperClass}>
           <div className={cn("relative", "flex items-center", "gap-2")}>
             <input
               type="checkbox"
@@ -169,28 +199,13 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
               checked={isChecked}
               onChange={handleChange}
               disabled={disabled || group?.disabled}
-              className={checkbox({ 
-                size, 
-                color, 
-                radius, 
-                error, 
-                indeterminate,
-                isChecked: isChecked || false
-              })}
+              className={checkboxClass}
               id={id}
               value={value}
               aria-checked={indeterminate ? "mixed" : isChecked}
               {...restProps}
             />
-            <div
-              className={cn(
-                checkboxIcon({ size }),
-                "pointer-events-none absolute left-0 top-0",
-                "flex items-center justify-center text-white",
-                "opacity-0 peer-checked:opacity-100",
-                "transition-opacity duration-200"
-              )}
-            >
+            <div className={iconClass}>
               {indeterminate ? (
                 <IndeterminateIcon />
               ) : (
@@ -205,7 +220,7 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
               onChange: handleChange
             }) : 
             children && (
-              <span className={checkboxText({ size, disabled: disabled || group?.disabled })}>
+              <span className={textClass}>
                 {children}
                 {shortcut && (
                   <kbd className="ml-2 rounded bg-gray-100 px-1.5 py-0.5 text-xs font-semibold text-gray-800">
@@ -219,7 +234,7 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
         {(helperTextProp || errorMessage) && (
           <p
             id={helperTextId}
-            className={helperText({ error })}
+            className={helperTextClass}
           >
             {error ? errorMessage : helperTextProp}
           </p>

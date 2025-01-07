@@ -35,6 +35,7 @@ export type LabelPlacement = 'left' | 'right' | 'top' | 'bottom';
  * @property errorMessage - Error message text
  * @property labelPlacement - Label position
  * @property shortcut - Keyboard shortcut
+ * @property isWithoutTailwind - Use custom CSS classes instead of Tailwind
  */
 export interface CheckboxProps {
   checked?: boolean;
@@ -65,6 +66,8 @@ export interface CheckboxProps {
   // Keyboard shortcuts
   shortcut?: string;
   onShortcut?: () => void;
+  // Styling
+  isWithoutTailwind?: boolean;
 }
 
 /**

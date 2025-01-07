@@ -65,9 +65,10 @@ export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps
       orientation = 'vertical',
       spacing = 'md',
       labelPlacement = 'right',
-      'aria-label': ariaLabel,
-      'aria-labelledby': ariaLabelledBy,
-      ...rest
+        className,
+        'aria-label': ariaLabel,
+        'aria-labelledby': ariaLabelledBy,
+        ...rest
     } = props;
 
     const [internalValue, setInternalValue] = useState<string[]>(defaultValue);
@@ -107,8 +108,9 @@ export const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps
               'gap-1': spacing === 'sm',
               'gap-2': spacing === 'md',
               'gap-3': spacing === 'lg',
-            }
-          )}
+            },
+            className
+            )}
           {...rest}
         >
           {children}

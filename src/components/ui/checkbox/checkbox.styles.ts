@@ -14,66 +14,70 @@ import { tv } from "tailwind-variants";
  */
 export const checkbox = tv({
   base: [
-    "peer appearance-none border-2 transition-all duration-200",
-    "focus:outline-none focus:ring-2",
+    "peer appearance-none transition-all duration-200",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "relative flex items-center justify-center",
-    // Custom styles using CSS variables
-    "before:content-[''] before:absolute before:inset-0",
-    "before:transform before:scale-0 before:transition-transform",
-    "checked:before:scale-100",
   ],
   variants: {
+    isWithoutTailwind: {
+      true: "react-checkbox-pro-base",
+      false: [
+        "border-2",
+        "focus:outline-none focus:ring-2 focus:ring-offset-2",
+        "before:content-[''] before:absolute before:inset-0",
+        "before:transform before:scale-0 before:transition-transform",
+        "checked:before:scale-100",
+      ]
+    },
     size: {
       xs: "h-3 w-3",
       sm: "h-4 w-4",
       md: "h-5 w-5",
-      lg: "h-6 w-6",
+      lg: "h-6 w-6"
     },
     color: {
-      default:
-        "checked:border-gray-500 checked:bg-gray-500",
-      primary:
-        "checked:border-primary checked:bg-primary",
-      secondary:
-        "checked:border-secondary checked:bg-secondary",
-      success:
-        "checked:border-success checked:bg-success",
-      warning:
-        "checked:border-warning checked:bg-warning",
-      danger: "checked:border-danger checked:bg-danger",
+      default: "checked:border-gray-500 checked:bg-gray-500 focus:ring-gray-500/20",
+      primary: "checked:border-primary checked:bg-primary focus:ring-primary/20",
+      secondary: "checked:border-secondary checked:bg-secondary focus:ring-secondary/20",
+      success: "checked:border-success checked:bg-success focus:ring-success/20",
+      warning: "checked:border-warning checked:bg-warning focus:ring-warning/20",
+      danger: "checked:border-danger checked:bg-danger focus:ring-danger/20"
     },
     radius: {
       none: "rounded-none",
       sm: "rounded-sm",
       md: "rounded",
       lg: "rounded-md",
-      full: "rounded-full",
-    },
-    error: {
-      true: "border-danger focus:ring-danger/20 hover:border-danger",
+      full: "rounded-full"
     },
     indeterminate: {
-      true: "bg-primary border-primary",
+      true: "bg-primary border-primary"
     },
     isChecked: {
-      true: "",
+      true: "checked:scale-100"
     },
+    error: {
+      true: "border-danger focus:ring-danger/20 hover:border-danger checked:border-danger checked:bg-danger"
+    }
   },
   defaultVariants: {
     size: "md",
     color: "primary",
     radius: "md",
-    isChecked: false,
+    isWithoutTailwind: false
   },
   compoundVariants: [
     {
-      error: true,
-      isChecked: true,
-      class:
-        "bg-danger border-danger checked:border-danger checked:bg-danger focus:ring-danger/20 focus:ring-offset-danger/20",
+      isWithoutTailwind: true,
+      color: "primary",
+      class: "react-checkbox-pro-base--primary"
     },
-  ],
+    {
+      isWithoutTailwind: true,
+      radius: "md",
+      class: "react-checkbox-pro-base--radius-md"
+    }
+  ]
 });
 
 /**
@@ -84,19 +88,25 @@ export const checkbox = tv({
  * labelPlacement - Label position relative to checkbox (left, right, top, bottom)
  */
 export const checkboxWrapper = tv({
-  base: "flex items-center gap-2",
+  base: "inline-flex items-center gap-2",
   variants: {
+    isWithoutTailwind: {
+      true: "react-checkbox-pro-wrapper",
+      false: "cursor-pointer disabled:cursor-not-allowed"
+    },
     labelPlacement: {
       left: "flex-row-reverse",
       right: "flex-row",
-      top: "flex-col-reverse items-center",
-      bottom: "flex-col items-center",
-    },
+      top: "flex-col-reverse items-center", 
+      bottom: "flex-col items-center"
+    }
   },
   defaultVariants: {
     labelPlacement: "right",
-  },
+    isWithoutTailwind: false
+  }
 });
+
 
 /**
  * Styles for the checkbox label container
@@ -114,22 +124,30 @@ export const checkboxLabel = tv({
  */
 export const checkboxIcon = tv({
   base: [
-    "pointer-events-none absolute left-0 top-0",
-    "flex items-center justify-center text-white",
-    "opacity-0 peer-checked:opacity-100",
-    "transition-opacity duration-200",
+    "pointer-events-none absolute inset-0",
+    "flex items-center justify-center",
   ],
   variants: {
+    isWithoutTailwind: {
+      true: "react-checkbox-pro-icon",
+      false: [
+        "text-white",
+        "opacity-0 scale-90 transition-all duration-200",
+        "peer-checked:opacity-100 peer-checked:scale-100",
+        "peer-disabled:cursor-not-allowed"
+      ]
+    },
     size: {
       xs: "h-3 w-3",
       sm: "h-4 w-4",
       md: "h-5 w-5",
-      lg: "h-6 w-6",
-    },
+      lg: "h-6 w-6"
+    }
   },
   defaultVariants: {
-    size: "md",
-  },
+    isWithoutTailwind: false,
+    size: "md"
+  }
 });
 
 /**
@@ -140,21 +158,29 @@ export const checkboxIcon = tv({
  * disabled - Styling for disabled state
  */
 export const checkboxText = tv({
-  base: "text-gray-700 dark:text-white select-none",
+  base: "select-none transition-colors",
   variants: {
+    isWithoutTailwind: {
+      true: "react-checkbox-pro-label",
+      false: "text-[var(--foreground)] peer-disabled:opacity-50"
+    },
+    disabled: {
+      true: {
+        true: "react-checkbox-pro-label--disabled",
+        false: "opacity-50"
+      }
+    },
     size: {
       xs: "text-xs",
       sm: "text-sm",
       md: "text-base",
-      lg: "text-lg",
-    },
-    disabled: {
-      true: "opacity-50",
-    },
+      lg: "text-lg"
+    }
   },
   defaultVariants: {
-    size: "md",
-  },
+    isWithoutTailwind: false,
+    size: "md"
+  }
 });
 
 /**
@@ -164,16 +190,51 @@ export const checkboxText = tv({
  * error - Switches between helper text and error message styling
  */
 export const helperText = tv({
-  base: "mt-1.5 text-sm",
+  base: "mt-1.5 text-sm transition-colors",
   variants: {
-    error: {
-      true: "text-danger",
-      false: "text-gray-500",
+    isWithoutTailwind: {
+      true: "react-checkbox-pro-helper",
+      false: ""
     },
+    error: {
+      true: {
+        true: "react-checkbox-pro-helper--error",
+        false: "text-[var(--danger)]"
+      },
+      false: {
+        true: "",
+        false: "text-gray-500"
+      }
+    }
   },
   defaultVariants: {
     error: false,
+    isWithoutTailwind: false
+  }
+});
+
+export const checkboxGroup = tv({
+  base: "flex gap-2",
+  variants: {
+    isWithoutTailwind: {
+      true: "react-checkbox-pro-group",
+      false: ""
+    },
+    orientation: {
+      horizontal: {
+        true: "react-checkbox-pro-group--horizontal",
+        false: "flex-row"
+      },
+      vertical: {
+        true: "react-checkbox-pro-group--vertical",
+        false: "flex-col"
+      }
+    }
   },
+  defaultVariants: {
+    orientation: "vertical",
+    isWithoutTailwind: false
+  }
 });
 
 export type CheckboxVariants = typeof checkbox;

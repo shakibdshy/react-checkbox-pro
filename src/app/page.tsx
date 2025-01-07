@@ -62,6 +62,14 @@ export default function Home() {
                 Current state: {isChecked ? "Checked" : "Unchecked"}
               </div>
             </div>
+
+            <Checkbox
+              isWithoutTailwind
+              color="primary"
+              size="md"
+            >
+              Custom CSS Checkbox
+            </Checkbox>
           </div>
         </section>
 

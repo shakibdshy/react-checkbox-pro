@@ -83,6 +83,7 @@ export const useCheckbox = (props: CheckboxProps) => {
     shortcut: props.shortcut,
     onShortcut: props.onShortcut,
     id: props.id,
+    isWithoutTailwind: props.isWithoutTailwind,
     'aria-label': props['aria-label'],
     'aria-labelledby': props['aria-labelledby'],
     'aria-describedby': props['aria-describedby'],
