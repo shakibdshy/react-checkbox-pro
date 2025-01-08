@@ -162,7 +162,7 @@ export const checkboxText = tv({
   variants: {
     isWithoutTailwind: {
       true: "react-checkbox-pro-label",
-      false: "text-[var(--foreground)] peer-disabled:opacity-50"
+      false: "text-foreground peer-disabled:opacity-50"
     },
     disabled: {
       true: {
