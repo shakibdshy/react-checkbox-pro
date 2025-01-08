@@ -54,20 +54,20 @@ export default function Home() {
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Controlled Checkbox</h2>
           <div className="space-y-4">
-            <div>
-              <Checkbox checked={isChecked} onChange={handleBasicChange}>
-                Basic Checkbox
-              </Checkbox>
-              <div className="mt-2 text-sm text-gray-500">
-                Current state: {isChecked ? "Checked" : "Unchecked"}
-              </div>
+            <Checkbox checked={isChecked} onChange={handleBasicChange}>
+              Basic Checkbox
+            </Checkbox>
+            <div className="mt-2 text-sm text-gray-500">
+              Current state: {isChecked ? "Checked" : "Unchecked"}
             </div>
+          </div>
+        </section>
 
-            <Checkbox
-              isWithoutTailwind
-              color="primary"
-              size="md"
-            >
+        {/* Custom CSS Checkbox */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Custom CSS Checkbox</h2>
+          <div className="space-y-4">
+            <Checkbox isWithoutTailwind color="primary" size="md">
               Custom CSS Checkbox
             </Checkbox>
           </div>
