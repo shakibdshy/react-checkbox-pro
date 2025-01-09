@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox";
+// import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox";
+import { Checkbox, CheckboxGroup } from 'react-checkbox-pro';
 import CheckIcon from "@/components/icons/checkbox-icon";
 import CircleIcon from "@/components/icons/circle-icon";
 
@@ -64,14 +65,14 @@ export default function Home() {
         </section>
 
         {/* Custom CSS Checkbox */}
-        <section className="space-y-4">
+        {/* <section className="space-y-4">
           <h2 className="text-xl font-semibold">Custom CSS Checkbox</h2>
           <div className="space-y-4">
             <Checkbox isWithoutTailwind color="primary" size="md">
               Custom CSS Checkbox
             </Checkbox>
           </div>
-        </section>
+        </section> */}
 
         {/* Helper Text and Error Checkbox */}
         <section className="space-y-4">

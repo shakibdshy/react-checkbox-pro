@@ -91,6 +91,7 @@ export interface CheckboxRenderProps extends Omit<CheckboxProps, 'defaultChecked
  * @property orientation - Layout direction
  * @property spacing - Space between checkboxes
  * @property labelPlacement - Label position for all checkboxes
+ * @property className - Custom CSS classes
  */
 export interface CheckboxGroupProps {
   children: ReactNode;
@@ -102,6 +103,7 @@ export interface CheckboxGroupProps {
   orientation?: 'horizontal' | 'vertical';
   spacing?: 'sm' | 'md' | 'lg';
   labelPlacement?: LabelPlacement;
+  className?: string;
   // Accessibility
   'aria-label'?: string;
   'aria-labelledby'?: string;
