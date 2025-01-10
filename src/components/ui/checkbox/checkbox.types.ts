@@ -109,6 +109,7 @@ export interface CheckboxGroupProps {
   spacing?: 'sm' | 'md' | 'lg';
   labelPlacement?: LabelPlacement;
   className?: string;
+  error?: boolean;
   // Accessibility
   'aria-label'?: string;
   'aria-labelledby'?: string;

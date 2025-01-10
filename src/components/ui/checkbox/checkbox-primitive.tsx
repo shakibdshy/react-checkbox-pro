@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, ChangeEvent } from "react";
 import { CheckboxProps, CheckboxRenderProps } from "./checkbox.types";
 import { checkbox, checkboxWrapper, checkboxIcon, checkboxText, helperText } from "./checkbox.styles";
 import { CheckboxGroupContext } from "./checkbox-group";
@@ -84,28 +84,35 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
      * - Calls group onChange if in a checkbox group
      * - Calls provided onChange handler
      */
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      const newChecked = e.target.checked;
-      
-      if (group && value) {
-        group.onChange(value);
-        return;
-      }
-      
-      if (!isControlled) {
-        setInternalChecked(newChecked);
-      }
-      
-      if (onChange) {
-        if (typeof onChange === 'function') {
-          if (onChange.length === 1) {
-            (onChange as (checked: boolean) => void)(newChecked);
-          } else {
-            (onChange as (e: React.ChangeEvent<HTMLInputElement>) => void)(e);
+    const handleChange = useCallback(
+      (event: ChangeEvent<HTMLInputElement>) => {
+        const newChecked = event.target.checked;
+
+        // Handle group context
+        if (group && value) {
+          group.onChange(value);
+          return;
+        }
+
+        // Handle both types of onChange handlers
+        if (onChange) {
+          if (typeof onChange === 'function') {
+            // Check if it's an event handler or boolean handler
+            if ('target' in event) {
+              (onChange as (e: ChangeEvent<HTMLInputElement>) => void)(event);
+            } else {
+              (onChange as (checked: boolean) => void)(newChecked);
+            }
           }
         }
-      }
-    }, [group, value, isControlled, onChange]);
+
+        // Update internal state for uncontrolled mode
+        if (!isControlled) {
+          setInternalChecked(newChecked);
+        }
+      },
+      [onChange, isControlled, group, value]
+    );
 
     /**
      * Keyboard shortcut handler
