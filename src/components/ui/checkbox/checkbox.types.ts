@@ -68,6 +68,11 @@ export interface CheckboxProps {
   onShortcut?: () => void;
   // Styling
   isWithoutTailwind?: boolean;
+  className?: string;
+  wrapperClassName?: string;
+  labelClassName?: string;
+  iconClassName?: string;
+  helperTextClassName?: string;
 }
 
 /**

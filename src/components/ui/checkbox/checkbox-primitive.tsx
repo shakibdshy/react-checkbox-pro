@@ -57,6 +57,11 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
       value,
       id,
       isWithoutTailwind = false,
+      className,
+      wrapperClassName,
+      labelClassName,
+      iconClassName,
+      helperTextClassName,
       ...restProps
     } = props;
 
@@ -157,37 +162,52 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
     const helperTextId = id ? `${id}-helper-text` : undefined;
 
     // Generate class names based on mode
-    const checkboxClass = checkbox({
-      size,
-      color,
-      radius,
-      error,
-      indeterminate,
-      isChecked,
-      isWithoutTailwind,
-      class: isWithoutTailwind ? `react-checkbox-pro-base--${color} react-checkbox-pro-base--radius-${radius}` : undefined
-    });
+    const checkboxClass = cn(
+      checkbox({
+        size,
+        color,
+        radius,
+        error,
+        indeterminate,
+        isChecked,
+        isWithoutTailwind,
+        class: isWithoutTailwind ? `react-checkbox-pro-base--${color} react-checkbox-pro-base--radius-${radius}` : undefined
+      }),
+      className
+    );
 
-    const wrapperClass = checkboxWrapper({
-      labelPlacement: finalLabelPlacement,
-      isWithoutTailwind
-    });
+    const wrapperClass = cn(
+      checkboxWrapper({
+        labelPlacement: finalLabelPlacement,
+        isWithoutTailwind
+      }),
+      wrapperClassName
+    );
 
-    const iconClass = checkboxIcon({
-      size,
-      isWithoutTailwind
-    });
+    const iconClass = cn(
+      checkboxIcon({
+        size,
+        isWithoutTailwind
+      }),
+      iconClassName
+    );
 
-    const textClass = checkboxText({
-      size,
-      disabled: disabled || group?.disabled,
-      isWithoutTailwind
-    });
+    const textClass = cn(
+      checkboxText({
+        size,
+        disabled: disabled || group?.disabled,
+        isWithoutTailwind
+      }),
+      labelClassName
+    );
 
-    const helperTextClass = helperText({
-      error,
-      isWithoutTailwind
-    });
+    const helperTextClass = cn(
+      helperText({
+        error,
+        isWithoutTailwind
+      }),
+      helperTextClassName
+    );
 
     return (
       <div className="space-y-1.5">
