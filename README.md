@@ -12,7 +12,7 @@ A fully accessible, customizable React checkbox component with indeterminate sta
 
 ## 📚 Documentation
 
-[[Demo](https://react-packages-doc.vercel.app/)
+[Documentation](https://react-packages-doc.vercel.app/)
 
 ## Features
 
