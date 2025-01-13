@@ -6,22 +6,62 @@ A fully accessible, customizable React checkbox component with indeterminate sta
 [![npm downloads](https://img.shields.io/npm/dm/react-checkbox-pro.svg)](https://www.npmjs.com/package/react-checkbox-pro)
 [![License](https://img.shields.io/npm/l/react-checkbox-pro.svg)](https://github.com/yourusername/react-checkbox-pro/blob/main/LICENSE)
 
+## 📚 Demo
+
+[Demo](https://react-checkbox-pro.vercel.app/)
+
 ## Features
 
-- 🎨 Multiple color variants and sizes
-- ♿️ Fully accessible (WAI-ARIA compliant)
-- 📱 Responsive and mobile-friendly
+### Core Features
+- ✨ Modern, lightweight checkbox component
+- 🔄 Controlled & Uncontrolled modes support
+- 👥 Checkbox group for managing multiple selections
 - 🎯 Indeterminate state support
-- 🎭 Custom icons support
-- 💅 Tailwind CSS styling
-- 📝 TypeScript support
-- 🔧 Highly customizable
-- ⌨️ Keyboard shortcuts support
-- 🎉 Easy to use
-- 🔄 Controlled & Uncontrolled modes
-- 👥 Checkbox group support
-- 📍 Flexible label placement
+- ⌨️ Full keyboard navigation and shortcuts
+- 🎨 CSS-in-JS with Tailwind variants
 
+### Styling & Customization
+- 🎭 Custom icons support
+- 🖼️ Built-in check and indeterminate icons
+- 🎨 Multiple built-in color variants
+-     Default, Primary, Secondary, Success, Warning, Danger
+- 📐 Four size variants (xs, sm, md, lg)
+- 🔲 Configurable border radius
+- 📍 Flexible label placement (left, right, top, bottom)
+- 💅 Works with both Tailwind CSS and custom CSS
+- 🎯 Custom styles without breaking accessibility
+- 🎪 Compound variants support
+
+### Accessibility & UX
+- ♿️ WAI-ARIA 1.2 compliant
+- 🔍 Screen reader friendly
+- 🎯 Focus management and indicators
+- 💬 Support for helper text and error messages
+- 📱 Responsive and touch-friendly
+- 🖱️ Click area optimization
+- 🔄 Smooth transitions
+
+### Developer Experience
+- 📝 Written in TypeScript with full type definitions
+- 🏃‍♂️ Tree-shakeable and optimized bundle
+- 📚 Comprehensive documentation and examples
+- 🧪 Reliable with proper error handling
+- 🔧 Easy to integrate and customize
+- 🎁 Zero external runtime dependencies
+- 📦 Small bundle size
+- 🔍 Source maps included
+
+### Advanced Features
+- 🔑 Keyboard shortcuts customization
+- 🎛️ Form integration support
+- 🔄 Async state management
+- 🎨 Theme customization support
+- 🔒 Disabled and readonly states
+- 📊 Group selection management
+- 🎯 Compound variants for complex styling
+- 🎨 CSS variables support
+- 🔄 State persistence options
+- 🎨 Custom styles without breaking accessibility
 ## Installation
 
 ```bash

@@ -65,13 +65,10 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
       ...restProps
     } = props;
 
-    // Internal state for uncontrolled mode
     const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
     const isControlled = checked !== undefined;
     const group = React.useContext(CheckboxGroupContext);
     const finalLabelPlacement = group?.labelPlacement || labelPlacement;
-    
-    // Determine checked state based on group context or local state
     const isChecked = group 
       ? group.value.includes(value || '') 
       : isControlled
@@ -87,17 +84,14 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
     const handleChange = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
         const newChecked = event.target.checked;
-
-        // Handle group context
+        
         if (group && value) {
           group.onChange(value);
           return;
         }
 
-        // Handle both types of onChange handlers
         if (onChange) {
           if (typeof onChange === 'function') {
-            // Check if it's an event handler or boolean handler
             if ('target' in event) {
               (onChange as (e: ChangeEvent<HTMLInputElement>) => void)(event);
             } else {
@@ -106,7 +100,6 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
           }
         }
 
-        // Update internal state for uncontrolled mode
         if (!isControlled) {
           setInternalChecked(newChecked);
         }
@@ -168,7 +161,6 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
 
     const helperTextId = id ? `${id}-helper-text` : undefined;
 
-    // Generate class names based on mode
     const checkboxClass = cn(
       checkbox({
         size,
