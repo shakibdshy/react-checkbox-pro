@@ -24,7 +24,7 @@ A fully accessible, customizable React checkbox component with indeterminate sta
 - 🎭 Custom icons support
 - 🖼️ Built-in check and indeterminate icons
 - 🎨 Multiple built-in color variants
--     Default, Primary, Secondary, Success, Warning, Danger
+-    Default, Primary, Secondary, Success, Warning, Danger
 - 📐 Four size variants (xs, sm, md, lg)
 - 🔲 Configurable border radius
 - 📍 Flexible label placement (left, right, top, bottom)
