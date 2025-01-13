@@ -10,6 +10,10 @@ A fully accessible, customizable React checkbox component with indeterminate sta
 
 [Demo](https://react-checkbox-pro.vercel.app/)
 
+## 📚 Documentation
+
+[[Demo](https://react-packages-doc.vercel.app/)
+
 ## Features
 
 ### Core Features
