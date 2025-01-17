@@ -29,6 +29,10 @@ export const customStyles = `
     box-shadow: 0 0 0 2px var(--checkbox-ring-color, rgb(59 130 246 / 0.2));
   }
 
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--checkbox-ring-color, rgb(59 130 246 / 0.2));
+  }
+
   &::before {
     content: '';
     position: absolute;

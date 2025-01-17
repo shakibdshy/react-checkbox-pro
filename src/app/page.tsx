@@ -55,10 +55,12 @@ export default function Home() {
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Indeterminate Example</h2>
           <div className="space-y-4 border rounded-lg p-4">
-            <Checkbox
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-            >
+            <Checkbox color="primary" isWithoutTailwind>Primary Checkbox</Checkbox>
+            <Checkbox color="secondary">Secondary Checkbox</Checkbox>
+            <Checkbox color="success">Success Checkbox</Checkbox>
+            <Checkbox color="warning">Warning Checkbox</Checkbox>
+            <Checkbox color="danger">Danger Checkbox</Checkbox>
+            <Checkbox checked={isChecked} onChange={handleCheckboxChange}>
               Controlled Checkbox
             </Checkbox>
           </div>

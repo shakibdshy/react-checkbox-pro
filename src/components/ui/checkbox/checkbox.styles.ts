@@ -23,7 +23,7 @@ export const checkbox = tv({
       true: "react-checkbox-pro-base",
       false: [
         "border-2",
-        "focus:outline-none focus:ring-2 focus:ring-offset-2",
+        "focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-2 focus-visible:ring-primary focus-visible:ring-offset-primary",
         "before:content-[''] before:absolute before:inset-0",
         "before:transform before:scale-0 before:transition-transform",
         "checked:before:scale-100",
@@ -36,12 +36,12 @@ export const checkbox = tv({
       lg: "h-6 w-6"
     },
     color: {
-      default: "checked:border-gray-500 checked:bg-gray-500 focus:ring-gray-500/20",
-      primary: "checked:border-primary checked:bg-primary focus:ring-primary/20",
-      secondary: "checked:border-secondary checked:bg-secondary focus:ring-secondary/20",
-      success: "checked:border-success checked:bg-success focus:ring-success/20",
-      warning: "checked:border-warning checked:bg-warning focus:ring-warning/20",
-      danger: "checked:border-danger checked:bg-danger focus:ring-danger/20"
+      default: "checked:border-gray-500 checked:bg-gray-500",
+      primary: "checked:border-primary checked:bg-primary",
+      secondary: "checked:border-secondary checked:bg-secondary",
+      success: "checked:border-success checked:bg-success",
+      warning: "checked:border-warning checked:bg-warning",
+      danger: "checked:border-danger checked:bg-danger"
     },
     radius: {
       none: "rounded-none",
