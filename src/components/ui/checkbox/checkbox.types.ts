@@ -4,7 +4,7 @@ import type { ReactNode, ChangeEvent } from "react";
 export type CheckboxSize = "xs" | "sm" | "md" | "lg";
 
 /** Available color variants */
-export type CheckboxColor = "default" | "primary" | "secondary" | "success" | "warning" | "danger";
+export type CheckboxColor = "default" | "primary" | "secondary" | "success" | "warning" | "error" | "neutral" | "info";
 
 /** Border radius options */
 export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
