@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Provider from "@/components/theme-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "React Checkbox Pro",
-  description: "A modern, customizable checkbox component for React with TypeScript support and Tailwind CSS integration",
+  description:
+    "A modern, customizable checkbox component for React with TypeScript support and Tailwind CSS integration",
 };
 
 export default function RootLayout({
@@ -27,7 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Provider enableSystem={false} disableTransitionOnChange>
+          {children}
+        </Provider>
       </body>
     </html>
   );
