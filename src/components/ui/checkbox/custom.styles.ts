@@ -6,7 +6,7 @@
 export const customStyles = `
 .react-checkbox-pro-base {
   appearance: none;
-  transition-property: all;
+  transition-property: color;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -22,15 +22,17 @@ export const customStyles = `
 
   border-width: 2px;
   border-style: solid;
-  border-color: var(--checkbox-border-color, #d1d5db);
+  border-color: hsl(var(--color-neutral-300));
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--checkbox-ring-color, rgb(59 130 246 / 0.2));
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 2px var(--checkbox-ring-color, rgb(59 130 246 / 0.2));
+    ring-width: 2px;
+    ring-offset-width: 2px;
+    ring-color: hsl(var(--color-primary-950));
+    ring-offset-color: hsl(var(--color-primary-950));
   }
 
   &::before {
@@ -46,6 +48,7 @@ export const customStyles = `
   }
 }
 
+/* Size variants */
 .react-checkbox-pro-base--xs {
   width: 0.75rem;
   height: 0.75rem;
@@ -66,72 +69,64 @@ export const customStyles = `
   height: 1.5rem;
 }
 
+/* Color variants */
 .react-checkbox-pro-base--default {
-  border-color: #d1d5db;
   &:checked {
     border-color: #6b7280;
     background-color: #6b7280;
   }
-  &:focus {
-    box-shadow: 0 0 0 2px rgb(107 114 128 / 0.2);
-  }
 }
 
 .react-checkbox-pro-base--primary {
-  border-color: #d1d5db;
   &:checked {
-    border-color: var(--primary);
-    background-color: var(--primary);
-  }
-  &:focus {
-    box-shadow: 0 0 0 2px rgb(var(--primary-rgb) / 0.2);
+    border-color: hsl(var(--color-primary-950));
+    background-color: hsl(var(--color-primary-950));
   }
 }
 
 .react-checkbox-pro-base--secondary {
-  border-color: #d1d5db;
   &:checked {
-    border-color: var(--secondary);
-    background-color: var(--secondary);
-  }
-  &:focus {
-    box-shadow: 0 0 0 2px rgb(var(--secondary-rgb) / 0.2);
+    border-color: hsl(var(--color-secondary-400));
+    background-color: hsl(var(--color-secondary-400));
   }
 }
 
-.react-checkbox-pro-base--success {
-  border-color: #d1d5db;
+.react-checkbox-pro-base--info {
   &:checked {
-    border-color: var(--success);
-    background-color: var(--success);
+    border-color: hsl(var(--color-info-950));
+    background-color: hsl(var(--color-info-950));
   }
-  &:focus {
-    box-shadow: 0 0 0 2px rgb(var(--success-rgb) / 0.2);
+}
+
+.react-checkbox-pro-base--neutral {
+  &:checked {
+    border-color: hsl(var(--color-neutral-950));
+    background-color: hsl(var(--color-neutral-950));
   }
 }
 
 .react-checkbox-pro-base--warning {
-  border-color: #d1d5db;
   &:checked {
-    border-color: var(--warning);
-    background-color: var(--warning);
-  }
-  &:focus {
-    box-shadow: 0 0 0 2px rgb(var(--warning-rgb) / 0.2);
+    border-color: hsl(var(--color-warning-950));
+    background-color: hsl(var(--color-warning-950));
   }
 }
 
-.react-checkbox-pro-base--danger {
-  border-color: #d1d5db;
+.react-checkbox-pro-base--success {
   &:checked {
-    border-color: var(--danger);
-    background-color: var(--danger);
-  }
-  &:focus {
-    box-shadow: 0 0 0 2px rgb(var(--danger-rgb) / 0.2);
+    border-color: hsl(var(--color-success-950));
+    background-color: hsl(var(--color-success-950));
   }
 }
 
+.react-checkbox-pro-base--error {
+  &:checked {
+    border-color: hsl(var(--color-error-950));
+    background-color: hsl(var(--color-error-950));
+  }
+}
+
+/* Radius variants */
 .react-checkbox-pro-base--radius-none {
   border-radius: 0;
 }
@@ -152,20 +147,50 @@ export const customStyles = `
   border-radius: 9999px;
 }
 
-.react-checkbox-pro-base--error {
-  border-color: var(--danger);
-  &:focus {
-    box-shadow: 0 0 0 2px rgb(var(--danger-rgb) / 0.2);
-  }
-  &:hover {
-    border-color: var(--danger);
-  }
-  &:checked {
-    border-color: var(--danger);
-    background-color: var(--danger);
-  }
+/* Icon styles */
+.react-checkbox-pro-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-center: center;
+  color: hsl(var(--color-base-white));
+  opacity: 0;
+  scale: 0.9;
+  transition-property: color;
+  transition-duration: 200ms;
 }
 
+.react-checkbox-pro-base:checked + .react-checkbox-pro-icon {
+  opacity: 1;
+  scale: 1;
+}
+
+/* Icon sizes */
+.react-checkbox-pro-icon--xs {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.react-checkbox-pro-icon--sm {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.react-checkbox-pro-icon--md {
+  width: 1rem;
+  height: 1rem;
+}
+
+.react-checkbox-pro-icon--lg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Wrapper styles */
 .react-checkbox-pro-wrapper {
   display: inline-flex;
   align-items: center;
@@ -175,96 +200,45 @@ export const customStyles = `
   &:disabled {
     cursor: not-allowed;
   }
-
-  &[data-label-placement="left"] {
-    flex-direction: row-reverse;
-  }
-
-  &[data-label-placement="right"] {
-    flex-direction: row;
-  }
-
-  &[data-label-placement="top"] {
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-
-  &[data-label-placement="bottom"] {
-    flex-direction: column;
-    align-items: center;
-  }
 }
 
-.react-checkbox-pro-icon {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 200ms;
-}
-
-.react-checkbox-pro-base:checked + .react-checkbox-pro-icon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.react-checkbox-pro-icon--disabled {
-  cursor: not-allowed;
-}
-
+/* Label styles */
 .react-checkbox-pro-label {
   user-select: none;
-  transition: color 200ms;
-  color: var(--foreground);
+  transition-property: color;
+  transition-duration: 200ms;
+  color: hsl(var(--color-neutral-900));
 
   &.react-checkbox-pro-label--disabled {
     opacity: 0.5;
   }
 }
 
+/* Helper text styles */
 .react-checkbox-pro-helper {
   margin-top: 0.375rem;
   font-size: 0.875rem;
-  transition: color 200ms;
+  transition-property: color;
+  transition-duration: 200ms;
+  color: hsl(var(--color-neutral-950));
 }
 
 .react-checkbox-pro-helper--error {
-  color: var(--danger);
+  color: hsl(var(--color-error-950));
 }
 
-.react-checkbox-pro-helper--default {
-  color: #6b7280;
-}
-
-.react-checkbox-pro-group {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.react-checkbox-pro-group--horizontal {
-  flex-direction: row;
-}
-
-.react-checkbox-pro-group--vertical {
-  flex-direction: column;
-}
-
+/* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .react-checkbox-pro-base {
-    border-color: var(--checkbox-dark-border, #374151);
+    border-color: hsl(var(--color-neutral-700));
   }
 
   .react-checkbox-pro-label {
-    color: var(--checkbox-dark-label, var(--foreground));
+    color: hsl(var(--color-neutral-200));
   }
 
-  .react-checkbox-pro-helper--default {
-    color: #9ca3af;
+  .react-checkbox-pro-helper {
+    color: hsl(var(--color-neutral-400));
   }
 }
 `;
