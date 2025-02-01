@@ -6,11 +6,7 @@ A fully accessible, customizable React checkbox component with indeterminate sta
 [![npm downloads](https://img.shields.io/npm/dm/react-checkbox-pro.svg)](https://www.npmjs.com/package/react-checkbox-pro)
 [![License](https://img.shields.io/npm/l/react-checkbox-pro.svg)](https://github.com/yourusername/react-checkbox-pro/blob/main/LICENSE)
 
-## 📚 Demo
-
-[Demo](https://react-checkbox-pro.vercel.app/)
-
-## 📚 Documentation
+## 📚 Demo & Documentation
 
 [Documentation](https://react-packages-doc.vercel.app/)
 
