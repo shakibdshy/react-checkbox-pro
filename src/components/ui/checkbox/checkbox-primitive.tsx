@@ -162,15 +162,14 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
     const helperTextId = id ? `${id}-helper-text` : undefined;
 
     const checkboxClass = cn(
-      checkbox({
+      checkbox({ 
         size,
         color,
         radius,
         error,
         indeterminate,
         isChecked,
-        isWithoutTailwind,
-        class: isWithoutTailwind ? `react-checkbox-pro-base--${color} react-checkbox-pro-base--radius-${radius}` : undefined
+        isWithoutTailwind
       }),
       className
     );
