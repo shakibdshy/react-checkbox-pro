@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { withTV } from "tailwind-variants/transformer";
+import themePlugin from "@shakibdshy/tailwind-theme";
 
 const config: Config = {
   darkMode: ["class"],
@@ -8,21 +9,12 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@shakibdshy/tailwind-theme/dist/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        primary: "var(--primary)",
-        secondary: "var(--secondary)",
-        success: "var(--success)",
-        warning: "var(--warning)",
-        danger: "var(--danger)",
-      },
-    },
+    extend: {}
   },
-  plugins: [],
+  plugins: [themePlugin],
 };
 
 export default withTV(config);
