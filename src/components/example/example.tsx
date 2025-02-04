@@ -25,13 +25,13 @@ export default function Example() {
 
   // Calculate parent checkbox state
   const allSelected = todos.every((todo) => todo.completed);
-  const isIndeterminate = todos.some((todo) => todo.completed) && !allSelected;
+  const someSelected = todos.some((todo) => todo.completed);
+  const isIndeterminate = someSelected && !allSelected;
 
-  // Handle parent checkbox change
+  console.log(isIndeterminate);
+
   const handleParentChange = () => {
-    // If all are selected or some are selected, uncheck all
-    // If none are selected, check all
-    const shouldCheck = !allSelected && !isIndeterminate;
+    const shouldCheck = !someSelected;
     setTodos((prevTodos) =>
       prevTodos.map((todo) => ({
         ...todo,
@@ -52,23 +52,20 @@ export default function Example() {
     <section className="space-y-4">
       <h2 className="text-xl font-semibold">Indeterminate Example</h2>
       <div className="space-y-4 border rounded-lg p-4">
-        <Checkbox color="default">Primary Checkbox</Checkbox>
-        <Checkbox color="secondary">Secondary Checkbox</Checkbox>
+        <Checkbox color="default" disabled>Primary Checkbox</Checkbox>
+        <Checkbox color="secondary" disabled>Secondary Checkbox</Checkbox>
         <Checkbox color="success">Success Checkbox</Checkbox>
         <Checkbox color="warning">Warning Checkbox</Checkbox>
         <Checkbox color="error">Error Checkbox</Checkbox>
         <Checkbox color="neutral" iconClassName="w-3.5 h-3.5">Neutral Checkbox</Checkbox>
         <Checkbox color="info">Info Checkbox</Checkbox>
         <Checkbox checked={isChecked} onChange={handleCheckboxChange}>
-
-
-
           Controlled Checkbox
         </Checkbox>
       </div>
       <div className="space-y-4 border rounded-lg p-4">
         <Checkbox
-          checked={allSelected}
+          checked={allSelected || isIndeterminate}
           indeterminate={isIndeterminate}
           onChange={handleParentChange}
           aria-label="Select all todos"

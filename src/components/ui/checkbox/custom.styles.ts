@@ -9,17 +9,10 @@ export const customStyles = `
   transition-property: color;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-width: 2px;
   border-style: solid;
   border-color: hsl(var(--color-neutral-300));
@@ -45,6 +38,30 @@ export const customStyles = `
 
   &:checked::before {
     transform: scale(1);
+  }
+}
+
+/* Disabled state */
+.react-checkbox-pro-base:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-color: hsl(var(--color-neutral-200));
+}
+
+.react-checkbox-pro-base:disabled + .react-checkbox-pro-icon {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.react-checkbox-pro-wrapper:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Dark mode disabled state */
+@media (prefers-color-scheme: dark) {
+  .react-checkbox-pro-base:disabled {
+    border-color: hsl(var(--color-neutral-700));
   }
 }
 
@@ -196,10 +213,6 @@ export const customStyles = `
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-
-  &:disabled {
-    cursor: not-allowed;
-  }
 }
 
 /* Label styles */
@@ -208,10 +221,12 @@ export const customStyles = `
   transition-property: color;
   transition-duration: 200ms;
   color: hsl(var(--color-neutral-900));
+}
 
-  &.react-checkbox-pro-label--disabled {
-    opacity: 0.5;
-  }
+/* Disabled label styles */
+.react-checkbox-pro-wrapper:has(input:disabled) .react-checkbox-pro-label {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Helper text styles */
@@ -240,5 +255,21 @@ export const customStyles = `
   .react-checkbox-pro-helper {
     color: hsl(var(--color-neutral-400));
   }
+}
+
+/* Indeterminate state */
+.react-checkbox-pro-base:indeterminate {
+  background-color: hsl(var(--color-primary-950));
+  border-color: hsl(var(--color-primary-950));
+}
+
+.react-checkbox-pro-base:indeterminate + .react-checkbox-pro-icon,
+.react-checkbox-pro-base:checked + .react-checkbox-pro-icon {
+  opacity: 1;
+  scale: 1;
+}
+
+.react-checkbox-pro-icon--indeterminate {
+  color: hsl(var(--color-base-white));
 }
 `;

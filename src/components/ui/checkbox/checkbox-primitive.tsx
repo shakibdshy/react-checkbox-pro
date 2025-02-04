@@ -2,9 +2,10 @@
 
 import React, { useEffect, useCallback, useState, ChangeEvent } from "react";
 import { CheckboxProps, CheckboxRenderProps } from "./checkbox.types";
-import { checkbox, checkboxWrapper, checkboxIcon, checkboxText, helperText } from "./checkbox.styles";
+import { checkbox, checkboxWrapper, checkboxIcon, checkboxText, helperText } from "@shakibdshy/tailwind-theme";
 import { CheckboxGroupContext } from "./checkbox-group";
 import { cn } from "@/lib/utils";
+
 import { DefaultCheckIcon, IndeterminateIcon } from "./checkbox-icon";
 
 /**
@@ -74,6 +75,15 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
       : isControlled
         ? checked
         : internalChecked;
+
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
+    // Set indeterminate state
+    React.useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.indeterminate = !!indeterminate;
+      }
+    }, [indeterminate]);
 
     /**
      * Handles checkbox state changes
@@ -177,8 +187,9 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
     const wrapperClass = cn(
       checkboxWrapper({
         labelPlacement: finalLabelPlacement,
-        isWithoutTailwind
+        isWithoutTailwind,
       }),
+      disabled && "disabled",
       wrapperClassName
     );
 
@@ -209,7 +220,10 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
 
     return (
       <div className="space-y-1.5">
-        <label className={wrapperClass}>
+        <label className={cn(
+          wrapperClass,
+          (disabled || group?.disabled) && "group",
+        )}>
           <div className={cn("relative", "flex items-center", "gap-2")}>
             <input
               type="checkbox"
@@ -223,11 +237,14 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
               aria-checked={indeterminate ? "mixed" : isChecked}
               {...restProps}
             />
-            <div className={iconClass}>
+            <div className={cn(
+              iconClass,
+              (disabled || group?.disabled) && "cursor-not-allowed opacity-50"
+            )}>
               {indeterminate ? (
-                <IndeterminateIcon />
+                <IndeterminateIcon isWithoutTailwind={isWithoutTailwind} />
               ) : (
-                checkedIcon || icon || <DefaultCheckIcon />
+                checkedIcon || icon || <DefaultCheckIcon isWithoutTailwind={isWithoutTailwind} />
               )}
             </div>
           </div>
@@ -238,7 +255,10 @@ export const CheckboxPrimitive = React.forwardRef<HTMLInputElement, CheckboxProp
               onChange: handleChange
             }) : 
             children && (
-              <span className={textClass}>
+              <span className={cn(
+                textClass,
+                (disabled || group?.disabled) && "opacity-50 cursor-not-allowed"
+              )}>
                 {children}
                 {shortcut && (
                   <kbd className="ml-2 rounded bg-gray-100 px-1.5 py-0.5 text-xs font-semibold text-gray-800">

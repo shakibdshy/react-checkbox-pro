@@ -54,7 +54,10 @@ export const checkbox = cva(
         full: "rounded-full",
       },
       indeterminate: {
-        true: "bg-primary border-primary",
+        true: [
+          "bg-primary border-primary",
+          "before:transform before:scale-100",
+        ],
       },
       isChecked: {
         true: "checked:scale-100",
@@ -83,7 +86,10 @@ export const checkboxWrapper = cva("inline-flex items-center gap-2", {
   variants: {
     isWithoutTailwind: {
       true: "react-checkbox-pro-wrapper",
-      false: "cursor-pointer disabled:cursor-not-allowed",
+      false: [
+        "cursor-pointer",
+        "disabled:cursor-not-allowed disabled:opacity-50",
+      ],
     },
     labelPlacement: {
       left: "flex-row-reverse",
@@ -123,6 +129,7 @@ export const checkboxIcon = cva(
           "text-white",
           "opacity-0 scale-90 transition-color duration-200",
           "peer-checked:opacity-100 peer-checked:scale-100",
+          "peer-indeterminate:opacity-100 peer-indeterminate:scale-100",
           "peer-disabled:cursor-not-allowed",
         ],
       },
@@ -151,13 +158,15 @@ export const checkboxText = cva("select-none transition-colors", {
   variants: {
     isWithoutTailwind: {
       true: "react-checkbox-pro-label",
-      false: "text-foreground peer-disabled:opacity-50",
+      false: [
+        "text-foreground",
+        "group-disabled:opacity-50",
+        "group-disabled:cursor-not-allowed",
+      ],
     },
     disabled: {
-      true: {
-        true: "react-checkbox-pro-label--disabled",
-        false: "opacity-50",
-      },
+      true: "opacity-50 cursor-not-allowed",
+      false: "",
     },
     size: {
       xs: "text-xs",

@@ -11,7 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@shakibdshy/react-button-pro": "^1.0.7",
-    "@shakibdshy/tailwind-theme": "^1.0.9",
+    "@shakibdshy/tailwind-theme": "^1.0.10",
     "@tabler/icons-react": "^3.29.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
