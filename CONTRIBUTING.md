@@ -9,9 +9,11 @@ We love your input! We want to make contributing to React Checkbox Pro as easy a
 - Becoming a maintainer
 
 ## We Develop with Github
+
 We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
 
 ## We Use [Github Flow](https://guides.github.com/introduction/flow/index.html)
+
 Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `main`.
@@ -22,10 +24,12 @@ Pull requests are the best way to propose changes to the codebase. We actively w
 6. Issue that pull request!
 
 ## Any contributions you make will be under the MIT Software License
+
 In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-## Report bugs using Github's [issue tracker](https://github.com/yourusername/react-checkbox-pro/issues)
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/yourusername/react-checkbox-pro/issues/new); it's that easy!
+## Report bugs using Github's [issue tracker](https://github.com/shakibdshy/react-checkbox-pro/issues)
+
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/shakibdshy/react-checkbox-pro/issues/new); it's that easy!
 
 ## Write bug reports with detail, background, and sample code
 
@@ -42,16 +46,19 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 ## Development Process
 
 1. Clone the repository:
+
 ```bash
-git clone https://github.com/yourusername/react-checkbox-pro.git
+git clone https://github.com/shakibdshy/react-checkbox-pro.git
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -59,14 +66,17 @@ npm run dev
 4. Make your changes and test them locally
 
 5. Run tests:
+
 ```bash
 npm test
 ```
 
 6. Build the package:
+
 ```bash
 npm run build
 ```
 
 ## License
-By contributing, you agree that your contributions will be licensed under its MIT License. 
+
+By contributing, you agree that your contributions will be licensed under its MIT License.
