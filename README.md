@@ -6,11 +6,7 @@ A fully accessible, customizable React checkbox component with indeterminate sta
 [![npm downloads](https://img.shields.io/npm/dm/react-checkbox-pro.svg)](https://www.npmjs.com/package/react-checkbox-pro)
 [![License](https://img.shields.io/npm/l/react-checkbox-pro.svg)](https://github.com/yourusername/react-checkbox-pro/blob/main/LICENSE)
 
-## 📚 Demo
-
-[Demo](https://react-checkbox-pro.vercel.app/)
-
-## 📚 Documentation
+## 📚 Demo & Documentation
 
 [Documentation](https://react-packages-doc.vercel.app/)
 
@@ -76,6 +72,22 @@ yarn add react-checkbox-pro
 pnpm add react-checkbox-pro
 ```
 
+## Usage
+
+Add the plugin to your `tailwind.config.js`:
+
+```js
+module.exports = {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@shakibdshy/tailwind-theme/dist/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  plugins: [
+    require('@shakibdshy/tailwind-theme')
+  ],
+}
+```
+
 ## Quick Start
 
 ```jsx
@@ -88,31 +100,6 @@ function App() {
     </Checkbox>
   );
 }
-```
-
-## Usage
-
-### Basic Usage
-
-```jsx
-// Controlled
-const [checked, setChecked] = useState(false);
-
-<Checkbox
-  checked={checked}
-  onChange={setChecked}
-  helperText="Optional helper text"
->
-  Accept terms and conditions
-</Checkbox>
-
-// Uncontrolled
-<Checkbox
-  defaultChecked
-  onChange={(checked) => console.log(checked)}
->
-  Remember me
-</Checkbox>
 ```
 
 ### Color Variants
@@ -153,6 +140,29 @@ const [checked, setChecked] = useState(false);
   required
 >
   Accept terms and conditions
+</Checkbox>
+```
+
+### Controlled and Uncontrolled
+
+```jsx
+// Controlled
+const [checked, setChecked] = useState(false);
+
+<Checkbox
+  checked={checked}
+  onChange={setChecked}
+  helperText="Optional helper text"
+>
+  Accept terms and conditions
+</Checkbox>
+
+// Uncontrolled
+<Checkbox
+  defaultChecked
+  onChange={(checked) => console.log(checked)}
+>
+  Remember me
 </Checkbox>
 ```
 
