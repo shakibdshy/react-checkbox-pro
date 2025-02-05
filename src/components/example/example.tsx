@@ -51,13 +51,19 @@ export default function Example() {
   return (
     <section className="space-y-4">
       <h2 className="text-xl font-semibold">Indeterminate Example</h2>
-      <div className="space-y-4 border rounded-lg p-4">
-        <Checkbox color="default" disabled>Primary Checkbox</Checkbox>
-        <Checkbox color="secondary" disabled>Secondary Checkbox</Checkbox>
+      <div className="flex flex-col space-y-4 border rounded-lg p-4">
+        <Checkbox color="default" disabled>
+          Primary Checkbox
+        </Checkbox>
+        <Checkbox color="secondary" disabled>
+          Secondary Checkbox
+        </Checkbox>
         <Checkbox color="success">Success Checkbox</Checkbox>
         <Checkbox color="warning">Warning Checkbox</Checkbox>
         <Checkbox color="error">Error Checkbox</Checkbox>
-        <Checkbox color="neutral" iconClassName="w-3.5 h-3.5">Neutral Checkbox</Checkbox>
+        <Checkbox color="neutral" iconClassName="w-3.5 h-3.5">
+          Neutral Checkbox
+        </Checkbox>
         <Checkbox color="info">Info Checkbox</Checkbox>
         <Checkbox checked={isChecked} onChange={handleCheckboxChange}>
           Controlled Checkbox
@@ -74,7 +80,7 @@ export default function Example() {
           Select All Tasks
         </Checkbox>
 
-        <div className="ml-6 space-y-2 mt-2">
+        <div className="ml-6 space-y-2 flex flex-col mt-2">
           {todos.map((todo) => (
             <Checkbox
               key={todo.id}
