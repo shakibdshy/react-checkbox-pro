@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox";
 
 interface Todo {
   id: number;
@@ -51,6 +51,16 @@ export default function Example() {
   return (
     <section className="space-y-4">
       <h2 className="text-xl font-semibold">Indeterminate Example</h2>
+      <div className="flex flex-col space-y-4 border rounded-lg p-4">
+        <CheckboxGroup
+          defaultValue={["apple"]}
+          onChange={(values) => console.log("Selected fruits:", values)}
+        >
+          <Checkbox value="apple">Apple</Checkbox>
+          <Checkbox value="banana">Banana</Checkbox>
+          <Checkbox value="orange">Orange</Checkbox>
+        </CheckboxGroup>
+      </div>
       <div className="flex flex-col space-y-4 border rounded-lg p-4">
         <Checkbox color="default" disabled>
           Primary Checkbox
